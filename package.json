@@ -1,0 +1,23 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "Play Tic-Tac-Toc against computer",
+  "main": "api/index.js",
+  "scripts": {
+    "app:dev": "npm test && npm run dev -w app",
+    "test": "jest --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "api",
+    "app"
+  ],
+  "devDependencies": {
+    "jest": "^27.2.5",
+    "standard": "^16.0.4"
+  },
+  "dependencies": {
+    "eslint-config-standard": "^16.0.3"
+  }
+}
