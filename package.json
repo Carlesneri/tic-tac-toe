@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-toe",
   "version": "1.0.0",
-  "description": "Play Tic-Tac-Toc against computer",
+  "description": "Play Tic-Tac-Toe against computer",
   "main": "api/index.js",
   "scripts": {
     "app:dev": "npm run dev -w app",

@@ -1,16 +1,17 @@
 import React, { useContext } from 'react'
 import { GameContext } from '../../Context/GameContext'
+import useGame from '../../hooks/useGame'
 import './styles.css'
 
 export default function Box ({ value, position }) {
-  const { setBoxes, turn, setTurn } = useContext(GameContext)
+  const { turn } = useContext(GameContext)
+  const { playPlayer, changeTurn } = useGame()
 
   const handleClickBoxButton = () => {
-    setBoxes(boxes => {
-      boxes[position] = 1
-      return [...boxes]
-    })
-    setTurn(2)
+    if (value === 0) {
+      playPlayer(position)
+      changeTurn()
+    }
   }
 
   return (
