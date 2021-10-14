@@ -4,7 +4,7 @@ const GameContext = createContext()
 
 const GameProvider = ({ children }) => {
   // Creating a state. possible values: 0-> not selected, 1-> player, 2->computer
-  const [boxes, setBoxes] = useState(Array(9).fill('0'))
+  const [boxes, setBoxes] = useState(Array(9).fill(0))
   const [turn, setTurn] = useState(null)
 
   return (

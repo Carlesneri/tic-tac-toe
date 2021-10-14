@@ -1,14 +1,31 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GameContext } from '../../Context/GameContext'
+import useGame from '../../hooks/useGame'
 import './styles.css'
 
 export default function Panel () {
-  const { turn, setTurn } = useContext(GameContext)
+  const { boxes, setBoxes, turn, setTurn } = useContext(GameContext)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const { playComputer } = useGame()
+  const [message, setMessage] = useState('')
 
   const handleClickStartButton = () => {
     const turn = Math.ceil(Math.random() * 2)
     setTurn(turn)
   }
+
+  useEffect(() => {
+    if (turn === 2) {
+      setIsPlaying(true)
+      playComputer({ boxes, setBoxes })
+      setIsPlaying(false)
+      setTurn(1)
+    }
+  }, [turn])
+
+  useEffect(() => {
+    isPlaying ? setMessage('playing computer...') : setMessage('')
+  }, [isPlaying])
 
   return (
     <div className='container'>
@@ -25,6 +42,7 @@ export default function Panel () {
             </div>
           )
         }
+        <div>{message}</div>
       </div>
     </div>
   )

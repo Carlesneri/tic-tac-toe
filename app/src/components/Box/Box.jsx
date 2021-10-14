@@ -3,13 +3,14 @@ import { GameContext } from '../../Context/GameContext'
 import './styles.css'
 
 export default function Box ({ value, position }) {
-  const { setBoxes, turn } = useContext(GameContext)
+  const { setBoxes, turn, setTurn } = useContext(GameContext)
 
   const handleClickBoxButton = () => {
     setBoxes(boxes => {
       boxes[position] = 1
       return [...boxes]
     })
+    setTurn(2)
   }
 
   return (

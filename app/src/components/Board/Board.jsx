@@ -3,7 +3,7 @@ import { GameContext } from '../../Context/GameContext'
 import Box from '../Box/Box'
 import './styles.css'
 
-export default function Board ({ canPlay }) {
+export default function Board () {
   const { boxes } = useContext(GameContext)
 
   return (
@@ -15,7 +15,6 @@ export default function Board ({ canPlay }) {
               value={box}
               key={index}
               position={index}
-              canPlay={canPlay}
             />)
         }
       </div>
