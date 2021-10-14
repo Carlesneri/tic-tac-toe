@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { GameContext } from '../../Context/GameContext'
 import Box from '../Box/Box'
-import './Board.css'
+import './styles.css'
 
-export default function Board({boxes, setBoxes}) {
+export default function Board ({ canPlay }) {
+  const { boxes } = useContext(GameContext)
+
   return (
-    <div className="container">
-      <div className="board">
-        {boxes.map((box, index) => <Box value={box} setBoxes={setBoxes} key={index} position={index + 1} />)}
+    <div className='container'>
+      <div className='board'>
+        {
+          boxes.map((box, index) =>
+            <Box
+              value={box}
+              key={index}
+              position={index}
+              canPlay={canPlay}
+            />)
+        }
       </div>
     </div>
   )
