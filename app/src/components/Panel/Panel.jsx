@@ -5,7 +5,7 @@ import './styles.css'
 import CONSTANTS from '../../CONSTANTS'
 import getAvailableBoxes from '../../helpers/getAvailableBoxes'
 
-const { COMPUTER_TIME, PLAYERS } = CONSTANTS
+const { COMPUTER_TIME, WINNER_MESSAGE } = CONSTANTS
 
 export default function Panel () {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -15,16 +15,14 @@ export default function Panel () {
 
   useEffect(() => {
     if (isWinner()) {
-      const { winner, positions } = isWinner()
-      setMessage(`${PLAYERS[winner]} win!`)
-      setWinnerPositions([...positions])
       setTurn(null)
+      const { winner, positions } = isWinner()
+      setMessage(WINNER_MESSAGE[winner])
+      setWinnerPositions([...positions])
     } else {
       if (getAvailableBoxes(boxes).length === 0) {
-        setMessage('Finish')
         setTurn(null)
-      } else {
-        turn && (isPlaying ? setMessage('playing computer...') : setMessage('play!'))
+        setMessage('Finish')
       }
     }
   }, [boxes])
@@ -39,6 +37,12 @@ export default function Panel () {
       }, COMPUTER_TIME)
     }
   }, [turn])
+
+  useEffect(() => {
+    if (turn) {
+      isPlaying ? setMessage('playing computer...') : setMessage('play!')
+    }
+  }, [turn, isPlaying])
 
   const handleClickStartButton = () => {
     setBoxes(Array(9).fill(0))

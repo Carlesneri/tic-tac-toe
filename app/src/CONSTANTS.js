@@ -5,8 +5,8 @@ export default {
     1: 'X',
     2: 'O'
   },
-  PLAYERS: {
-    1: 'You',
-    2: 'Computer'
+  WINNER_MESSAGE: {
+    1: 'You win!',
+    2: 'Computer wins!'
   }
 }

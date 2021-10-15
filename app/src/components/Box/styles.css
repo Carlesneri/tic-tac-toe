@@ -22,4 +22,7 @@
   pointer-events: none;
   background-color: #ccc;
 }
+.box .winner {
+  background-color: powderblue;
+}
 

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { GameContext } from '../../Context/GameContext'
-import useGame from '../../hooks/useGame'
 import Box from '../Box/Box'
 import './styles.css'
 
