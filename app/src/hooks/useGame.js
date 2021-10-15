@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { GameContext } from '../Context/GameContext'
+import findWinner from '../helpers/findWinner'
 import getAvailableBoxes from '../helpers/getAvailableBoxes'
 
 export default () => {
@@ -23,7 +24,7 @@ export default () => {
 
     setBoxes(prevState => {
       prevState[availableBox] = 2
-      return prevState
+      return [...prevState]
     })
   }
 
@@ -33,5 +34,9 @@ export default () => {
     setTurn(newTurn)
   }
 
-  return { playPlayer, playComputer, changeTurn }
+  const isWinner = () => {
+    return findWinner(boxes)
+  }
+
+  return { playPlayer, playComputer, changeTurn, isWinner }
 }

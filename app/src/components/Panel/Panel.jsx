@@ -2,58 +2,70 @@ import React, { useContext, useEffect, useState } from 'react'
 import { GameContext } from '../../Context/GameContext'
 import useGame from '../../hooks/useGame'
 import './styles.css'
-import config from '../../config'
+import CONSTANTS from '../../CONSTANTS'
 import getAvailableBoxes from '../../helpers/getAvailableBoxes'
 
-const { COMPUTER_TIME } = config
+const { COMPUTER_TIME, PLAYERS } = CONSTANTS
 
 export default function Panel () {
   const [isPlaying, setIsPlaying] = useState(false)
-  const { playComputer, changeTurn } = useGame()
-  const { boxes, turn, setTurn } = useContext(GameContext)
+  const { playComputer, isWinner, changeTurn } = useGame()
+  const { boxes, setBoxes, turn, setTurn, setWinnerPositions } = useContext(GameContext)
   const [message, setMessage] = useState('')
 
-  const handleClickStartButton = () => {
-    const turn = Math.ceil(Math.random() * 2)
-    setTurn(turn)
-  }
+  useEffect(() => {
+    if (isWinner()) {
+      const { winner, positions } = isWinner()
+      setMessage(`${PLAYERS[winner]} win!`)
+      setWinnerPositions([...positions])
+      setTurn(null)
+    } else {
+      if (getAvailableBoxes(boxes).length === 0) {
+        setMessage('Finish')
+        setTurn(null)
+      } else {
+        turn && (isPlaying ? setMessage('playing computer...') : setMessage('play!'))
+      }
+    }
+  }, [boxes])
 
   useEffect(() => {
     if (turn === 2) {
       setIsPlaying(true)
       setTimeout(() => {
         playComputer()
-        setIsPlaying(false)
         changeTurn()
+        setIsPlaying(false)
       }, COMPUTER_TIME)
     }
   }, [turn])
 
-  useEffect(() => {
-    if (getAvailableBoxes(boxes).length === 0) {
-      setMessage('Finish')
-    } else {
-      isPlaying ? setMessage('playing computer...') : setMessage('play!')
-    }
-  }, [boxes, isPlaying])
+  const handleClickStartButton = () => {
+    setBoxes(Array(9).fill(0))
+    setWinnerPositions([])
+    setMessage('')
+    const turn = Math.ceil(Math.random() * 2)
+    setTurn(turn)
+  }
 
   return (
     <div className='container'>
       <div className='panel'>
+        <div className='buttons'>
+          <div className='button'>
+            <button onClick={handleClickStartButton}>
+              {turn === null ? 'start' : 'new game'}
+            </button>
+          </div>
+        </div>
         {
-        (turn === null)
-          ? (
-            <div className='buttons'>
-              <div className='button'>
-                <button onClick={handleClickStartButton}>start</button>
+          (
+            message && (
+              <div className='message'>
+                {message}
               </div>
-            </div>
             )
-          : (
-            <div className='message'>
-              {message}
-            </div>
-            )
+          )
         }
       </div>
     </div>

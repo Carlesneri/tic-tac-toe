@@ -2,15 +2,24 @@ import React, { useContext } from 'react'
 import { GameContext } from '../../Context/GameContext'
 import useGame from '../../hooks/useGame'
 import './styles.css'
+import CONSTANTS from '../../CONSTANTS'
+
+const { BUTTON_VALUES } = CONSTANTS
 
 export default function Box ({ value, position }) {
-  const { turn } = useContext(GameContext)
-  const { playPlayer, changeTurn } = useGame()
+  const { turn, setTurn } = useContext(GameContext)
+  const { playPlayer, changeTurn, isWinner } = useGame()
+
+  const buttonValue = BUTTON_VALUES[value]
 
   const handleClickBoxButton = () => {
     if (value === 0) {
       playPlayer(position)
-      changeTurn()
+      if (isWinner()) {
+        setTurn(null)
+      } else {
+        changeTurn()
+      }
     }
   }
 
@@ -18,9 +27,9 @@ export default function Box ({ value, position }) {
     <div className='box'>
       <button
         onClick={handleClickBoxButton}
-        className={!(turn === 1) ? 'disabled' : ''}
+        className={turn === 1 ? '' : 'disabled'}
       >
-        {value}
+        {buttonValue}
       </button>
     </div>
   )
