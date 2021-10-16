@@ -1,5 +1,6 @@
 {
   "name": "tic-tac-toe",
+  "type": "module",
   "version": "1.0.0",
   "description": "Play Tic-Tac-Toe against computer",
   "main": "api/index.js",

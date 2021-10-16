@@ -1,0 +1,12 @@
+###
+POST http://localhost:3001/game
+content-type: application/json
+
+{
+  "game": {
+    
+  }
+}
+
+###
+
