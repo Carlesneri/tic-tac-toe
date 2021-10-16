@@ -4,7 +4,13 @@ content-type: application/json
 
 {
   "game": {
-    
+    "result": "win",
+    "moves": [
+      {
+        "player": "user",
+        "box": 4
+      }
+    ]
   }
 }
 
