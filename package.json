@@ -7,7 +7,8 @@
     "app:dev": "npm run dev -w app",
     "test": "vite-jest --watchAll",
     "build": "vite build -w app",
-    "start": "npm start -w api"
+    "start": "npm start -w api",
+    "api:dev": "npm run dev -w api"
   },
   "author": "",
   "license": "ISC",
