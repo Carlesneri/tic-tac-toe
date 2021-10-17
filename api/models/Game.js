@@ -2,18 +2,18 @@ import mongoose from 'mongoose'
 
 const { Schema, model } = mongoose
 
-const MoveSchema = new Schema({
+const BoxSchema = new Schema({
   player: {
-    type: String,
-    enum: ['user', 'computer'],
+    type: Number,
+    enum: [1, 2],
     required: true
   },
-  box: {
+  throw: {
     type: Number,
-    enum: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    enum: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     required: true
   }
-}, { timestamps: true })
+})
 
 const GameSchema = new Schema({
   result: {
@@ -21,13 +21,12 @@ const GameSchema = new Schema({
     enum: ['win', 'lose', 'draw'],
     required: true
   },
-  moves: {
-    type: [MoveSchema],
+  boxes: {
+    type: [BoxSchema],
     required: true
   },
   user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
+    type: String
   }
 }, { timestamps: true })
 
