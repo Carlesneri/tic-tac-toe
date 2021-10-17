@@ -1,9 +1,7 @@
-const getAvailableBoxes = boxes => {
-  const filtered = boxes.reduce((prev, curr, i) => {
-    if (curr === 0) return [...prev, i]
+export default boxes => {
+  const availableBoxIndexes = boxes.reduce((prev, curr, i) => {
+    if (curr.player === 0) return [...prev, i]
     return [...prev]
   }, [])
-  return filtered
+  return availableBoxIndexes
 }
-
-export default getAvailableBoxes

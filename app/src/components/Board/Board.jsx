@@ -12,7 +12,7 @@ export default function Board () {
         {
           boxes.map((box, index) =>
             <Box
-              value={box}
+              value={box.player}
               key={index}
               position={index}
             />)

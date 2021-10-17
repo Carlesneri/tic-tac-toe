@@ -6,7 +6,7 @@
   "main": "api/index.js",
   "scripts": {
     "app:dev": "npm run dev -w app",
-    "test": "vite-jest --watchAll",
+    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest --watchAll",
     "build": "vite build -w app",
     "start": "npm start -w api",
     "api:dev": "npm run dev -w api"

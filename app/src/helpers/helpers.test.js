@@ -5,11 +5,11 @@ let boxes
 
 describe('getAvailableBoxes', () => {
   beforeEach(() => {
-    boxes = Array(9).fill(0)
+    boxes = Array(9).fill({ player: 0, throw: 0 })
   })
   test('returns the available boxes', () => {
-    boxes[4] = 1
-    boxes[7] = 2
+    boxes[4] = { player: 1, throw: 1 }
+    boxes[7] = { player: 2, throw: 2 }
     const expected = 7
     const result = getAvailableBoxes(boxes)
     expect(result).toHaveLength(expected)
@@ -18,7 +18,7 @@ describe('getAvailableBoxes', () => {
 
 describe('findWinner', () => {
   beforeEach(() => {
-    boxes = Array(9).fill(0)
+    boxes = Array(9).fill({ player: 0, throw: 0 })
   })
   test('findWinner returns null initailly', () => {
     const winner = findWinner(boxes)
@@ -27,8 +27,8 @@ describe('findWinner', () => {
   })
   test('findWinner returns winner 1 when a correct combination', () => {
     const tester = [2, 5, 8]
-    tester.forEach(num => {
-      boxes[num] = 1
+    tester.forEach((num, i) => {
+      boxes[num] = { player: 1, throw: i }
     })
     const { winner, positions } = findWinner(boxes)
     const expected = 1
@@ -37,8 +37,8 @@ describe('findWinner', () => {
   })
   test('findWinner returns winner 2 when a correct combination', () => {
     const tester = [6, 7, 8]
-    tester.forEach(num => {
-      boxes[num] = 2
+    tester.forEach((num, i) => {
+      boxes[num] = { player: 2, throw: i }
     })
     const { winner, positions } = findWinner(boxes)
     const expected = 2

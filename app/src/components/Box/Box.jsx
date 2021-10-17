@@ -7,8 +7,9 @@ import CONSTANTS from '../../CONSTANTS'
 const { BUTTON_VALUES } = CONSTANTS
 
 export default function Box ({ value, position }) {
+  const buttonValue = BUTTON_VALUES[value]
   const { turn, setTurn, winnerPositions } = useContext(GameContext)
-  const { playPlayer, changeTurn, isWinner } = useGame()
+  const { playPlayer, changeTurn, isWinner, saveGame } = useGame()
   const [styles, setStyles] = useState('disabled')
 
   useEffect(() => {
@@ -22,13 +23,12 @@ export default function Box ({ value, position }) {
     }
   }, [winnerPositions, turn])
 
-  const buttonValue = BUTTON_VALUES[value]
-
   const handleClickBoxButton = () => {
     if (value === 0) {
       playPlayer(position)
       if (isWinner()) {
         setTurn(null)
+        saveGame()
       } else {
         changeTurn()
       }

@@ -9,26 +9,28 @@ const { COMPUTER_TIME, WINNER_MESSAGE } = CONSTANTS
 
 export default function Panel () {
   const [isPlaying, setIsPlaying] = useState(false)
-  const { playComputer, isWinner, changeTurn } = useGame()
-  const { boxes, setBoxes, turn, setTurn, setWinnerPositions } = useContext(GameContext)
+  const { startGame, playComputer, isWinner, changeTurn, saveGame } = useGame()
+  const { boxes, turn, setTurn, setWinnerPositions } = useContext(GameContext)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
     if (isWinner()) {
       setTurn(null)
+      saveGame()
       const { winner, positions } = isWinner()
       setMessage(WINNER_MESSAGE[winner])
       setWinnerPositions([...positions])
     } else {
       if (getAvailableBoxes(boxes).length === 0) {
         setTurn(null)
-        setMessage('Finish')
+        setMessage('Draw!')
+        saveGame()
       }
     }
   }, [boxes])
 
   useEffect(() => {
-    if (turn === 2) {
+    if (turn === 2 && getAvailableBoxes(boxes).length !== 0) {
       setIsPlaying(true)
       setTimeout(() => {
         playComputer()
@@ -45,9 +47,10 @@ export default function Panel () {
   }, [turn, isPlaying])
 
   const handleClickStartButton = () => {
-    setBoxes(Array(9).fill(0))
+    startGame()
     setWinnerPositions([])
     setMessage('')
+    // setMoves([])
     const turn = Math.ceil(Math.random() * 2)
     setTurn(turn)
   }

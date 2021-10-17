@@ -8,5 +8,14 @@ export default {
   WINNER_MESSAGE: {
     1: 'You win!',
     2: 'Computer wins!'
-  }
+  },
+  PLAYERS: {
+    1: 'user',
+    2: 'computer'
+  },
+  RESULTS: {
+    1: 'win',
+    2: 'lose'
+  },
+  BASE_URL: 'http://localhost:3001/game'
 }
