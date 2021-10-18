@@ -4,8 +4,6 @@ import { COOKIE_SESSION_NAME } from '../config.js'
 export const saveGame = async (req, res) => {
   const { game } = req.body
   const sessionID = req.cookies[COOKIE_SESSION_NAME]
-  console.log({ sessionID })
-
   try {
     await saveGameInDB({ user: sessionID, ...game })
     res.json({
@@ -21,7 +19,6 @@ export const saveGame = async (req, res) => {
 
 export const getUserGames = async (req, res) => {
   const sessionID = req.cookies[COOKIE_SESSION_NAME]
-
   try {
     const userGames = await getDBUserGames(sessionID)
     res.json({ games: userGames })

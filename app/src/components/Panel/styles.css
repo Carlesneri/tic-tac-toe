@@ -1,4 +1,15 @@
 .panel {
   text-align: center;
-  height: 5rem;
+}
+.message-container {
+  height: 1.5rem;
+  margin: 1rem;
+}
+.message {
+  font-size: 1.2rem;
+}
+.panel button {
+  min-width: 200px;
+  font-size: 1.3rem;
+  margin: 1rem;
 }

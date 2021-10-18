@@ -15,12 +15,13 @@ app.use(session({
   secret: SECRET,
   resave: true,
   saveUninitialized: true,
-  name: COOKIE_SESSION_NAME
+  name: COOKIE_SESSION_NAME,
+  secure: false
 }))
 
-app.use(express.json())
-
 app.use(express.static('../app/dist'))
+
+app.use(express.json())
 
 app.use('/game', gameRoutes)
 

@@ -4,25 +4,39 @@
   place-content: center;
 }
 .box:nth-of-type(-n+6) {
-  border-bottom: 1px solid black;
+  border-bottom: 4px solid var(--border);
 }
 .box:nth-of-type(3n+1) {
-  border-right: 1px solid black;
+  border-right: 4px solid var(--border);
 }
 .box:nth-of-type(3n+2) {
-  border-right: 1px solid black;
+  border-right: 4px solid var(--border);
 }
 .box button {
-  width: 48px;
-  height: 48px;
-  background-color: #fff;
-  cursor: pointer;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;  
+  font-size: 1.6rem;
+}
+.box button:not(:empty) {
+  animation: flip .2s;
 }
 .box button.disabled {
   pointer-events: none;
-  background-color: #ccc;
+  background-color: var(--bg-disabled);
 }
-.box .winner {
-  background-color: powderblue;
+.box button.winner {
+  background-color: var(--bg-winner);
 }
-
+.box button.taken:hover {
+  background-color: var(--bg-btn);
+  border-color: var(--border-btn);
+}
+@keyframes flip {
+  50% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}

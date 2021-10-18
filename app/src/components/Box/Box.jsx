@@ -8,7 +8,7 @@ const { BUTTON_VALUES } = CONSTANTS
 
 export default function Box ({ value, position }) {
   const buttonValue = BUTTON_VALUES[value]
-  const { turn, setTurn, winnerPositions } = useContext(GameContext)
+  const { turn, setTurn, winnerPositions, arePlaying } = useContext(GameContext)
   const { playPlayer, changeTurn, isWinner } = useGame()
   const [styles, setStyles] = useState('disabled')
 
@@ -16,10 +16,14 @@ export default function Box ({ value, position }) {
     if (winnerPositions.length) {
       const isWinnerPosition = winnerPositions.some(el => el === position)
       if (isWinnerPosition) {
-        setStyles('winner')
+        setStyles('disabled winner')
+      } else {
+        setStyles('disabled')
       }
     } else {
-      turn === 1 ? setStyles('') : setStyles('disabled')
+      (!arePlaying || turn === 2) && setStyles('disabled')
+      turn === 1 && value === 0 && setStyles('')
+      turn === 1 && value !== 0 && setStyles('taken')
     }
   }, [winnerPositions, turn])
 
@@ -28,7 +32,6 @@ export default function Box ({ value, position }) {
       playPlayer(position)
       if (isWinner()) {
         setTurn(null)
-        // saveGame()
       } else {
         changeTurn()
       }
@@ -39,7 +42,7 @@ export default function Box ({ value, position }) {
     <div className='box'>
       <button
         onClick={handleClickBoxButton}
-        className={styles}
+        className={`${styles} glass`}
       >
         {buttonValue}
       </button>

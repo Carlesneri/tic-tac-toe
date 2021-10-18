@@ -8,7 +8,7 @@ import getAvailableBoxes from '../../helpers/getAvailableBoxes'
 const { COMPUTER_TIME, WINNER_MESSAGE } = CONSTANTS
 
 export default function Panel () {
-  const { boxes, turn, setTurn, setWinnerPositions, setArePlaying } = useContext(GameContext)
+  const { boxes, turn, setTurn, setWinnerPositions, arePlaying, setArePlaying } = useContext(GameContext)
   const [isComputerPlaying, setIsComputerPlaying] = useState(false)
   const [message, setMessage] = useState('')
   const { startGame, playComputer, isWinner, changeTurn, saveGame } = useGame()
@@ -25,7 +25,7 @@ export default function Panel () {
       if (getAvailableBoxes(boxes).length === 0) {
         setTurn(null)
         setArePlaying(false)
-        setMessage('Draw!')
+        setMessage(WINNER_MESSAGE[0])
         saveGame()
       }
       setWinnerPositions([])
@@ -44,36 +44,38 @@ export default function Panel () {
   }, [turn])
 
   useEffect(() => {
-    if (turn) {
+    if (arePlaying) {
       isComputerPlaying ? setMessage('playing computer...') : setMessage('play!')
     }
-  }, [turn, isComputerPlaying])
+  }, [turn, isComputerPlaying, arePlaying])
 
   const handleClickStartButton = () => {
+    // setMessage('')
     startGame()
     setWinnerPositions([])
-    setMessage('')
   }
 
   return (
     <div className='container'>
       <div className='panel'>
         <div className='buttons'>
-          <div className='button'>
-            <button onClick={handleClickStartButton}>
+          <div>
+            <button className='glass' onClick={handleClickStartButton}>
               {turn === null ? 'start' : 'new game'}
             </button>
           </div>
         </div>
-        {
-          (
-            message && (
-              <div className='message'>
-                {message}
-              </div>
+        <div className='message-container'>
+          {
+            (
+              message && (
+                <div className='message'>
+                  {message}
+                </div>
+              )
             )
-          )
-        }
+          }
+        </div>
       </div>
     </div>
   )

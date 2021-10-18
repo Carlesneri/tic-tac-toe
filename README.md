@@ -9,7 +9,7 @@ Play Tic Tac Toe agains computer
 - Install dependencies: `npm i`
 - Create dist folder: `npm run build`
 - Start the server: `npm start`
-- Visit: `http://localhost: 3001`
+- Visit: `http://localhost:3001`
 
 ## Scripts
 - build: `npm run build`

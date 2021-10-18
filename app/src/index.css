@@ -1,3 +1,44 @@
+:root {
+  --border: rgba(255, 255, 255, 0.5);
+  --bg-btn: hsla(324, 100%, 50%, 0.5);
+  --border-btn: rgba(255, 255, 255, 0.4);
+  --bg-hover: hsla(324, 100%, 50%, 0.75);
+  --bg-disabled: hsla(324, 100%, 50%, 0.2);
+  --bg-winner: hsla(175, 100%, 50%, 0.7)
+}
+html {
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui;
+  color: white;
+  background: #000000;
+  background: linear-gradient(to bottom, #434343, #000000);
+}
+.glass {
+  background-color: var(--bg-btn);
+  border: 2px solid var(--border-btn);
+  backdrop-filter: blur(24px);
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  transition: all .2s ease-in-out;
+}
+button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  padding: 1rem;
+}
+button.glass:hover {
+  background-color: var(--bg-hover);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
+}
 .container {
   margin: 1rem;
   display: flex;

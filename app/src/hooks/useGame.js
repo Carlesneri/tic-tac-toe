@@ -10,7 +10,7 @@ import getComputerBox from '../helpers/getComputerBox'
 const { BASE_URL, RESULTS } = CONSTANTS
 
 export default () => {
-  const { boxes, setBoxes, turn, setTurn, setHistory, arePlaying, setArePlaying } = useContext(GameContext)
+  const { boxes, setBoxes, turn, setTurn, setHistory, arePlaying, setArePlaying, setWinnerPositions } = useContext(GameContext)
 
   useEffect(() => {
     updateHistory()
@@ -25,6 +25,7 @@ export default () => {
 
   const cleanBoard = () => {
     setBoxes(Array(9).fill({ player: 0, throw: 0 }))
+    setWinnerPositions([])
   }
 
   const playPlayer = (position) => {
@@ -69,11 +70,10 @@ export default () => {
       const { winner } = winnerResult
       result = RESULTS[winner]
     }
-    const boxesWithValue = boxes.filter(el => el.throw !== 0)
     const body = {
       game: {
         result,
-        boxes: boxesWithValue
+        boxes
       }
     }
     try {
@@ -85,21 +85,29 @@ export default () => {
   }
 
   const updateHistory = async () => {
-    const res = await axios.get(BASE_URL)
-    const { games } = res.data
-    setHistory(games)
+    try {
+      const res = await axios.get(BASE_URL)
+      const { games } = res.data
+      setHistory(games)
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const cleanHistory = async () => {
-    await axios.delete(BASE_URL)
-    setHistory([])
+    try {
+      await axios.delete(BASE_URL)
+      setHistory([])
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const fillBoard = gameBoxes => {
     if (arePlaying) return
     cleanBoard()
     gameBoxes.forEach((box, index) => {
-      setTimeout(() => {
+      box.throw && setTimeout(() => {
         setBoxes(prevState => {
           prevState[index] = { player: box.player, throw: box.throw }
           return [...prevState]
