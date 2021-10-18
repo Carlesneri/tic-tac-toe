@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { GameContext } from '../Context/GameContext'
 import findWinner from '../helpers/findWinner'
 import getThrow from '../helpers/getThrow'
@@ -10,7 +10,11 @@ import getComputerBox from '../helpers/getComputerBox'
 const { BASE_URL, RESULTS } = CONSTANTS
 
 export default () => {
-  const { boxes, setBoxes, turn, setTurn } = useContext(GameContext)
+  const { boxes, setBoxes, turn, setTurn, setHistory } = useContext(GameContext)
+
+  useEffect(() => {
+    updateHistory()
+  }, [])
 
   const startGame = () => {
     setBoxes(Array(9).fill({ player: 0, throw: 0 }))
@@ -66,10 +70,22 @@ export default () => {
     }
     try {
       await axios.post(BASE_URL, body)
+      updateHistory()
     } catch (error) {
       console.error(error)
     }
   }
 
-  return { startGame, playPlayer, playComputer, changeTurn, isWinner, saveGame }
+  const updateHistory = async () => {
+    const res = await axios.get(BASE_URL)
+    const { games } = res.data
+    setHistory(games)
+  }
+
+  const cleanHistory = async () => {
+    await axios.delete(BASE_URL)
+    setHistory([])
+  }
+
+  return { startGame, playPlayer, playComputer, changeTurn, isWinner, saveGame, cleanHistory }
 }

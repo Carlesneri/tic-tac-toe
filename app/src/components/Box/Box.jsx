@@ -28,7 +28,7 @@ export default function Box ({ value, position }) {
       playPlayer(position)
       if (isWinner()) {
         setTurn(null)
-        saveGame()
+        // saveGame()
       } else {
         changeTurn()
       }

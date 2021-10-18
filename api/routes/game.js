@@ -1,8 +1,12 @@
 import { Router } from 'express'
-import { saveGame } from '../controllers/game.js'
+import { saveGame, getUserGames, deleteUserGames } from '../controllers/game.js'
 
 const router = Router()
 
 router.post('/', saveGame)
+
+router.get('/', getUserGames)
+
+router.delete('/', deleteUserGames)
 
 export default router
