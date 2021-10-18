@@ -5,11 +5,12 @@
   "description": "Play Tic-Tac-Toe against computer",
   "main": "api/index.js",
   "scripts": {
-    "app:dev": "npm run dev -w app",
-    "test": "set NODE_OPTIONS=--experimental-vm-modules && jest --watchAll",
     "build": "vite build -w app",
     "start": "npm start -w api",
-    "api:dev": "npm run dev -w api"
+    "app:dev": "npm run dev -w app",
+    "api:dev": "npm run dev -w api",
+    "test:app": "npm run test -w app",
+    "test:api": "npm run test -w api"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +20,7 @@
   ],
   "devDependencies": {
     "@jest/globals": "^27.2.5",
+    "cypress": "^8.6.0",
     "eslint-plugin-jest": "^25.0.6",
     "jest": "^27.2.5",
     "standard": "^16.0.4",

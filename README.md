@@ -15,3 +15,11 @@ Play Tic Tac Toe agains computer
 - build: `npm run build`
 - start: `npm start`
 
+## Tests
+- Install devDependencies: `npm i -D`
+- Run tests:
+  - In APP: `npm run test:app` using jest
+  - In API: `npm run test:api` using cypress
+
+## Notes
+- Scripts are configured for a Windows OS.

@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "set NODE_ENV=test && nodemon index.js",
+    "start": "node index.js",
+    "test": "cypress open"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "mongoose": "^6.0.11"
   },
   "devDependencies": {
+    "cypress": "^8.6.0",
     "nodemon": "^2.0.13"
   },
   "proxy": "http://localhost:3000"
