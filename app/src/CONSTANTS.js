@@ -14,6 +14,7 @@ export default {
     2: 'computer'
   },
   RESULTS: {
+    draw: 'draw',
     1: 'win',
     2: 'lose'
   },

@@ -24,6 +24,5 @@ export default matches => {
   reducedMatches.forEach(match => {
     positions.push(...POSITIONS[match])
   })
-  // console.log({ positions })
   return positions
 }

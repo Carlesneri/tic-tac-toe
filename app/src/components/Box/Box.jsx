@@ -9,7 +9,7 @@ const { BUTTON_VALUES } = CONSTANTS
 export default function Box ({ value, position }) {
   const buttonValue = BUTTON_VALUES[value]
   const { turn, setTurn, winnerPositions } = useContext(GameContext)
-  const { playPlayer, changeTurn, isWinner, saveGame } = useGame()
+  const { playPlayer, changeTurn, isWinner } = useGame()
   const [styles, setStyles] = useState('disabled')
 
   useEffect(() => {

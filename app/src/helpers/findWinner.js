@@ -3,7 +3,6 @@ import getPositions from './getPositions'
 
 export default boxes => {
   const boxPlayersJoined = boxes.map(el => el.player).join('')
-  // console.log({ boxPlayersJoined })
   const player1RegExp = getPlayerRegExp(1)
   const player2RegExp = getPlayerRegExp(2)
   const matchPlayer1 = boxPlayersJoined.match(player1RegExp)

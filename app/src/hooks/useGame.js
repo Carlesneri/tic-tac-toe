@@ -10,13 +10,20 @@ import getComputerBox from '../helpers/getComputerBox'
 const { BASE_URL, RESULTS } = CONSTANTS
 
 export default () => {
-  const { boxes, setBoxes, turn, setTurn, setHistory } = useContext(GameContext)
+  const { boxes, setBoxes, turn, setTurn, setHistory, arePlaying, setArePlaying } = useContext(GameContext)
 
   useEffect(() => {
     updateHistory()
   }, [])
 
   const startGame = () => {
+    cleanBoard()
+    setArePlaying(true)
+    const turn = Math.ceil(Math.random() * 2)
+    setTurn(turn)
+  }
+
+  const cleanBoard = () => {
     setBoxes(Array(9).fill({ player: 0, throw: 0 }))
   }
 
@@ -53,10 +60,11 @@ export default () => {
   }
 
   const saveGame = async () => {
+    if (!arePlaying) return
     let result
     const winnerResult = isWinner()
     if (!winnerResult) {
-      result = 'draw'
+      result = RESULTS.draw
     } else {
       const { winner } = winnerResult
       result = RESULTS[winner]
@@ -87,5 +95,18 @@ export default () => {
     setHistory([])
   }
 
-  return { startGame, playPlayer, playComputer, changeTurn, isWinner, saveGame, cleanHistory }
+  const fillBoard = gameBoxes => {
+    if (arePlaying) return
+    cleanBoard()
+    gameBoxes.forEach((box, index) => {
+      setTimeout(() => {
+        setBoxes(prevState => {
+          prevState[index] = { player: box.player, throw: box.throw }
+          return [...prevState]
+        })
+      }, box.throw * 500)
+    })
+  }
+
+  return { startGame, playPlayer, playComputer, changeTurn, isWinner, saveGame, cleanHistory, fillBoard }
 }
