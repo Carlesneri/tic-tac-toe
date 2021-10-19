@@ -11,7 +11,7 @@ export const saveGame = async (req, res) => {
       message: 'Game saved successfully'
     })
   } catch (error) {
-    console.error(error)
+    console.log(error)
     res.json({
       message: 'Error saving game'
     })
@@ -24,7 +24,7 @@ export const getUserGames = async (req, res) => {
     const userGames = await getDBUserGames(sessionID)
     res.json({ games: userGames })
   } catch (error) {
-    console.error(error)
+    console.log(error)
     res.json({
       message: 'Error getting user games'
     })
@@ -37,7 +37,7 @@ export const deleteUserGames = async (req, res) => {
     await deleteDBUserGames(sessionID)
     res.json({ message: 'Games deleted' })
   } catch (error) {
-    console.error(error)
+    console.log(error)
     res.json({
       message: 'Error deleting games'
     })

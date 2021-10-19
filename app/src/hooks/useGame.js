@@ -81,7 +81,7 @@ export default () => {
       await axiosInstance.post(BASE_URL, body)
       updateHistory()
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 
@@ -94,7 +94,7 @@ export default () => {
       const { games } = res.data
       setHistory(games)
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 
@@ -103,7 +103,7 @@ export default () => {
       await axiosInstance.delete(BASE_URL)
       setHistory([])
     } catch (error) {
-      console.error(error)
+      console.log(error)
     }
   }
 
