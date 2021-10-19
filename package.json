@@ -5,7 +5,7 @@
   "description": "Play Tic-Tac-Toe against computer",
   "main": "api/index.js",
   "scripts": {
-    "build": "vite build -w app",
+    "build": "npm run build -w app",
     "start": "npm start -w api",
     "dev:app": "npm run dev -w app",
     "dev:api": "npm run dev -w api",
@@ -19,7 +19,6 @@
     "app"
   ],
   "devDependencies": {
-    "@jest/globals": "^27.2.5",
     "cypress": "^8.6.0",
     "eslint-plugin-jest": "^25.0.6",
     "jest": "^27.2.5",

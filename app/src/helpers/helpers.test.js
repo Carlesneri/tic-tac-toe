@@ -1,4 +1,3 @@
-// import { describe, expect, test } from '@jest/globals'
 import findWinner from './findWinner'
 import getAvailableBoxes from './getAvailableBoxes'
 import getComputerBox from './getComputerBox'
@@ -19,7 +18,6 @@ describe('getAvailableBoxes', () => {
 })
 
 describe('findWinner', () => {
- 
   test('findWinner returns null initailly', () => {
     const winner = findWinner(boxes)
     const expected = null
