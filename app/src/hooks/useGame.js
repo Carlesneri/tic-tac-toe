@@ -6,13 +6,16 @@ import getAvailableBoxes from '../helpers/getAvailableBoxes'
 import CONSTANTS from '../CONSTANTS'
 import axios from 'axios'
 import getComputerBox from '../helpers/getComputerBox'
+import { v1 as uuidV1 } from 'uuid'
+import { useCookies } from 'react-cookie'
 
-const { BASE_URL, RESULTS } = CONSTANTS
+const { BASE_URL, RESULTS, COOKIE_SESSION_NAME } = CONSTANTS
 
 const axiosInstance = axios.create({ withCredentials: true })
 
 export default () => {
   const { boxes, setBoxes, turn, setTurn, setHistory, arePlaying, setArePlaying, setWinnerPositions } = useContext(GameContext)
+  const [cookies, setCookies] = useCookies([COOKIE_SESSION_NAME])
 
   const startGame = () => {
     cleanBoard()
@@ -83,6 +86,9 @@ export default () => {
   }
 
   const updateHistory = async () => {
+    if (!cookies[COOKIE_SESSION_NAME]) {
+      setCookies(COOKIE_SESSION_NAME, uuidV1())
+    }
     try {
       const res = await axiosInstance.get(BASE_URL)
       const { games } = res.data

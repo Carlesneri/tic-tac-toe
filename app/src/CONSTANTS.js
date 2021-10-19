@@ -19,5 +19,7 @@ export default {
     1: 'win',
     2: 'lose'
   },
-  BASE_URL: 'http://localhost:3001/game'
+  BASE_URL: 'http://localhost:3001/game',
+  COOKIE_SESSION_NAME: 'tic-tac-toe.sid'
+
 }

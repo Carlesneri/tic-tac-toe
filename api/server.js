@@ -15,13 +15,13 @@ app.use(cors({
 
 app.use(cookieParser())
 
-app.use(session({
-  secret: SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: COOKIE_SESSION_NAME,
-  secure: false
-}))
+// app.use(session({
+//   secret: SECRET,
+//   resave: true,
+//   saveUninitialized: true,
+//   name: COOKIE_SESSION_NAME,
+//   secure: false
+// }))
 
 app.use(express.static('../app/dist'))
 
