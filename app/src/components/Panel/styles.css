@@ -8,6 +8,17 @@
 .message {
   font-size: 1.2rem;
 }
+.message.win {
+  font-size: 1.4rem;
+  color: greenyellow;
+}
+.message.lose {
+  font-size: 1.4rem;
+  color: orangered;
+}
+.message.draw {
+  font-size: 1.4rem;
+}
 .panel button {
   min-width: 200px;
   font-size: 1.3rem;

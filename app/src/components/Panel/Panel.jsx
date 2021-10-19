@@ -5,13 +5,21 @@ import './styles.css'
 import CONSTANTS from '../../CONSTANTS'
 import getAvailableBoxes from '../../helpers/getAvailableBoxes'
 
-const { COMPUTER_TIME, WINNER_MESSAGE } = CONSTANTS
+const { COMPUTER_TIME, WINNER_MESSAGE, RESULTS } = CONSTANTS
 
 export default function Panel () {
   const { boxes, turn, setTurn, setWinnerPositions, arePlaying, setArePlaying } = useContext(GameContext)
   const [isComputerPlaying, setIsComputerPlaying] = useState(false)
   const [message, setMessage] = useState('')
+  const [messageStyle, setMessageStyle] = useState('')
   const { startGame, playComputer, isWinner, changeTurn, saveGame } = useGame()
+
+  useEffect(() => {
+    if (arePlaying) {
+      setMessageStyle('')
+      isComputerPlaying ? setMessage('playing computer...') : setMessage('play!')
+    }
+  }, [turn, isComputerPlaying, arePlaying])
 
   useEffect(() => {
     if (isWinner()) {
@@ -20,12 +28,14 @@ export default function Panel () {
       saveGame()
       const { winner, positions } = isWinner()
       setMessage(WINNER_MESSAGE[winner])
+      setMessageStyle(RESULTS[winner])
       setWinnerPositions([...positions])
     } else {
       if (getAvailableBoxes(boxes).length === 0) {
         setTurn(null)
         setArePlaying(false)
         setMessage(WINNER_MESSAGE[0])
+        setMessageStyle(RESULTS.draw)
         saveGame()
       }
       setWinnerPositions([])
@@ -42,12 +52,6 @@ export default function Panel () {
       }, COMPUTER_TIME)
     }
   }, [turn])
-
-  useEffect(() => {
-    if (arePlaying) {
-      isComputerPlaying ? setMessage('playing computer...') : setMessage('play!')
-    }
-  }, [turn, isComputerPlaying, arePlaying])
 
   const handleClickStartButton = () => {
     // setMessage('')
@@ -69,7 +73,7 @@ export default function Panel () {
           {
             (
               message && (
-                <div className='message'>
+                <div className={`message ${messageStyle}`}>
                   {message}
                 </div>
               )

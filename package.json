@@ -7,8 +7,8 @@
   "scripts": {
     "build": "vite build -w app",
     "start": "npm start -w api",
-    "app:dev": "npm run dev -w app",
-    "api:dev": "npm run dev -w api",
+    "dev:app": "npm run dev -w app",
+    "dev:api": "npm run dev -w api",
     "test:app": "npm run test -w app",
     "test:api": "npm run test -w api"
   },

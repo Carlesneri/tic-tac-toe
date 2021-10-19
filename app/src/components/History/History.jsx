@@ -6,8 +6,12 @@ import './styles.css'
 export default function History () {
   const { history, arePlaying } = useContext(GameContext)
   const [sortedHistory, setSortedHistory] = useState([])
-  const { cleanHistory, fillBoard } = useGame()
+  const { updateHistory, cleanHistory, fillBoard } = useGame()
   const [score, setScore] = useState({})
+
+  useEffect(() => {
+    updateHistory()
+  }, [])
 
   useEffect(() => {
     const sorted = history.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
@@ -36,11 +40,11 @@ export default function History () {
           clean history
         </button>
       </div>
-      <div>
+      <div className='body'>
         {
         history.length > 0
           ? (
-            <div>
+            <>
               <div className='score'>
                 score: <span className='win'>{score.won}</span> / <span className='lose'>{score.loses}</span>
               </div>
@@ -62,7 +66,7 @@ export default function History () {
                   )
                 })}
               </ul>
-            </div>
+            </>
             )
           : (
             <div>No games saved</div>

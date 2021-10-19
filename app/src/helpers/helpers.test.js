@@ -1,5 +1,7 @@
+// import { describe, expect, test } from '@jest/globals'
 import findWinner from './findWinner'
 import getAvailableBoxes from './getAvailableBoxes'
+import getComputerBox from './getComputerBox'
 
 let boxes
 
@@ -17,9 +19,7 @@ describe('getAvailableBoxes', () => {
 })
 
 describe('findWinner', () => {
-  beforeEach(() => {
-    boxes = Array(9).fill({ player: 0, throw: 0 })
-  })
+ 
   test('findWinner returns null initailly', () => {
     const winner = findWinner(boxes)
     const expected = null
@@ -44,5 +44,21 @@ describe('findWinner', () => {
     const expected = 2
     expect(winner).toBe(expected)
     expect(positions).toStrictEqual(tester)
+  })
+})
+
+describe('getComputerBox', () => {
+  beforeEach(() => {
+    boxes = Array(9).fill({ player: 0, throw: 0 })
+  })
+  test('returns a winner position', () => {
+    const tester = [2, 8]
+    tester.forEach((num, i) => {
+      boxes[num] = { player: 2, throw: i }
+    })
+    const availableBoxes = getAvailableBoxes(boxes)
+    const result = getComputerBox(availableBoxes, boxes)
+    const expected = 5
+    expect(result).toBe(expected)
   })
 })

@@ -6,6 +6,9 @@
   display: flex;
   border-bottom: 3px solid var(--border);
 }
+.history .body {
+  margin-top: 1rem;
+}
 .header button {
   margin: 1rem;
   padding: 0rem .3rem;
@@ -32,8 +35,10 @@ ul {
   height: 2rem;
 }
 .score {
-  margin-top: 1rem;
   text-align: center;
+}
+.score span {
+  font-weight: bold;
 }
 .history .win {
   color: greenyellow;

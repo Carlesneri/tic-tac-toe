@@ -2,8 +2,8 @@ export default {
   COMPUTER_TIME: 1000,
   BUTTON_VALUES: {
     0: '',
-    1: 'X',
-    2: 'O'
+    1: 'O',
+    2: 'X'
   },
   WINNER_MESSAGE: {
     0: 'draw!',

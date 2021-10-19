@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { GameContext } from '../Context/GameContext'
 import findWinner from '../helpers/findWinner'
 import getThrow from '../helpers/getThrow'
@@ -11,10 +11,6 @@ const { BASE_URL, RESULTS } = CONSTANTS
 
 export default () => {
   const { boxes, setBoxes, turn, setTurn, setHistory, arePlaying, setArePlaying, setWinnerPositions } = useContext(GameContext)
-
-  useEffect(() => {
-    updateHistory()
-  }, [])
 
   const startGame = () => {
     cleanBoard()
@@ -41,7 +37,7 @@ export default () => {
   const playComputer = () => {
     if (turn === 2 && !isWinner()) {
       const availableBoxes = getAvailableBoxes(boxes)
-      const computerBox = getComputerBox(availableBoxes)
+      const computerBox = getComputerBox(availableBoxes, boxes)
       setBoxes(prevState => {
         prevState[computerBox] = { player: 2, throw: getThrow(availableBoxes.length) }
         return [...prevState]
@@ -116,5 +112,5 @@ export default () => {
     })
   }
 
-  return { startGame, playPlayer, playComputer, changeTurn, isWinner, saveGame, cleanHistory, fillBoard }
+  return { startGame, playPlayer, playComputer, changeTurn, isWinner, saveGame, cleanHistory, fillBoard, updateHistory }
 }
