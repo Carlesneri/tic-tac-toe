@@ -31,3 +31,7 @@
 .panel button:hover {
   background-color: var(--bg-winner-hover);
 }
+#startButton.disabled {
+  pointer-events: none;
+  opacity: .5;
+} 

@@ -12,12 +12,16 @@ export default function Panel () {
   const [isComputerPlaying, setIsComputerPlaying] = useState(false)
   const [message, setMessage] = useState('')
   const [messageStyle, setMessageStyle] = useState('')
+  const [startStyle, setStartStyle] = useState('')
   const { startGame, playComputer, isWinner, changeTurn, saveGame } = useGame()
 
   useEffect(() => {
     if (arePlaying) {
       setMessageStyle('')
+      setStartStyle('disabled')
       isComputerPlaying ? setMessage('playing computer...') : setMessage('play!')
+    } else {
+      setStartStyle('')
     }
   }, [turn, isComputerPlaying, arePlaying])
 
@@ -54,7 +58,6 @@ export default function Panel () {
   }, [turn])
 
   const handleClickStartButton = () => {
-    // setMessage('')
     startGame()
     setWinnerPositions([])
   }
@@ -64,8 +67,8 @@ export default function Panel () {
       <div className='panel'>
         <div className='buttons'>
           <div>
-            <button className='glass' onClick={handleClickStartButton}>
-              {turn === null ? 'start' : 'new game'}
+            <button id='startButton' className={`glass ${startStyle}`} onClick={handleClickStartButton}>
+              start
             </button>
           </div>
         </div>

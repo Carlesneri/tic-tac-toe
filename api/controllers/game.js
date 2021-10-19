@@ -4,6 +4,7 @@ import { COOKIE_SESSION_NAME } from '../config.js'
 export const saveGame = async (req, res) => {
   const { game } = req.body
   const sessionID = req.cookies[COOKIE_SESSION_NAME]
+
   try {
     await saveGameInDB({ user: sessionID, ...game })
     res.json({

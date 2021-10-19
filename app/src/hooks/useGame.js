@@ -9,6 +9,8 @@ import getComputerBox from '../helpers/getComputerBox'
 
 const { BASE_URL, RESULTS } = CONSTANTS
 
+const axiosInstance = axios.create({ withCredentials: true })
+
 export default () => {
   const { boxes, setBoxes, turn, setTurn, setHistory, arePlaying, setArePlaying, setWinnerPositions } = useContext(GameContext)
 
@@ -73,7 +75,7 @@ export default () => {
       }
     }
     try {
-      await axios.post(BASE_URL, body)
+      await axiosInstance.post(BASE_URL, body)
       updateHistory()
     } catch (error) {
       console.error(error)
@@ -82,7 +84,7 @@ export default () => {
 
   const updateHistory = async () => {
     try {
-      const res = await axios.get(BASE_URL)
+      const res = await axiosInstance.get(BASE_URL)
       const { games } = res.data
       setHistory(games)
     } catch (error) {
@@ -92,7 +94,7 @@ export default () => {
 
   const cleanHistory = async () => {
     try {
-      await axios.delete(BASE_URL)
+      await axiosInstance.delete(BASE_URL)
       setHistory([])
     } catch (error) {
       console.error(error)
