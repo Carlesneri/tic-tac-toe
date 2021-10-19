@@ -4,7 +4,8 @@
   --border-btn: rgba(255, 255, 255, 0.4);
   --bg-hover: hsla(324, 100%, 50%, 0.75);
   --bg-disabled: hsla(324, 100%, 50%, 0.2);
-  --bg-winner: hsla(175, 100%, 50%, 0.7)
+  --bg-winner: hsla(175, 100%, 50%, 0.7);
+  --bg-winner-hover: hsla(175, 100%, 50%, 0.8);
 }
 html {
   margin: 0;
