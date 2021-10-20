@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { GameContext } from '../../Context/GameContext'
 import useGame from '../../hooks/useGame'
+import HistoryGame from '../HistoryGame/HistoryGame'
 import './styles.css'
 
 export default function History () {
@@ -8,16 +9,10 @@ export default function History () {
   const [sortedHistory, setSortedHistory] = useState([])
   const { updateHistory, cleanHistory, fillBoard } = useGame()
   const [score, setScore] = useState({ won: 0, loses: 0 })
-  const [gameButtonVisibility, setGameButtonVisibility] = useState('hidden')
 
   useEffect(() => {
     updateHistory()
   }, [])
-
-  useEffect(() => {
-    const visibility = arePlaying ? 'hidden' : 'visible'
-    setGameButtonVisibility(visibility)
-  }, [arePlaying])
 
   useEffect(() => {
     const sorted = history.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
@@ -55,21 +50,15 @@ export default function History () {
                 score: <span className='win'>{score.won}</span> / <span className='lose'>{score.loses}</span>
               </div>
               <ul>
-                {sortedHistory.map((game) => {
-                  return (
-                    <li key={game._id} className='game'>
-                      <span className={game.result}>{game.result}</span>
-                      <button
-                        style={{ visibility: gameButtonVisibility }}
-                        className='glass'
-                        onClick={() =>
-                          handleClickPlayGameHistoryButon(game.boxes)}
-                      >
-                        play
-                      </button>
-                    </li>
-                  )
-                })}
+                {
+                  sortedHistory.map((game) =>
+                    <HistoryGame
+                      key={game._id}
+                      game={game}
+                      arePlaying={arePlaying}
+                      handleClickPlayGameHistoryButon={handleClickPlayGameHistoryButon}
+                    />)
+                }
               </ul>
             </>
             )

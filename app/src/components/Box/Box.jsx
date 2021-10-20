@@ -1,15 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { GameContext } from '../../Context/GameContext'
-import useGame from '../../hooks/useGame'
+import React, { useEffect, useState } from 'react'
 import './styles.css'
 import CONSTANTS from '../../CONSTANTS'
 
 const { BUTTON_VALUES } = CONSTANTS
 
-export default function Box ({ value, position }) {
+export default function Box ({ value, position, playPlayer, changeTurn, isWinner, turn, setTurn, winnerPositions, arePlaying }) {
   const buttonValue = BUTTON_VALUES[value]
-  const { turn, setTurn, winnerPositions, arePlaying } = useContext(GameContext)
-  const { playPlayer, changeTurn, isWinner } = useGame()
   const [styles, setStyles] = useState('disabled')
 
   useEffect(() => {
