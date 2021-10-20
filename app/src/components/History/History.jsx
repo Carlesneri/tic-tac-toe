@@ -7,11 +7,17 @@ export default function History () {
   const { history, arePlaying } = useContext(GameContext)
   const [sortedHistory, setSortedHistory] = useState([])
   const { updateHistory, cleanHistory, fillBoard } = useGame()
-  const [score, setScore] = useState({})
+  const [score, setScore] = useState({ won: 0, loses: 0 })
+  const [gameButtonVisibility, setGameButtonVisibility] = useState('hidden')
 
   useEffect(() => {
     updateHistory()
   }, [])
+
+  useEffect(() => {
+    const visibility = arePlaying ? 'hidden' : 'visible'
+    setGameButtonVisibility(visibility)
+  }, [arePlaying])
 
   useEffect(() => {
     const sorted = history.sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
@@ -53,15 +59,14 @@ export default function History () {
                   return (
                     <li key={game._id} className='game'>
                       <span className={game.result}>{game.result}</span>
-                      {!arePlaying && (
-                        <button
-                          className='glass'
-                          onClick={() =>
-                            handleClickPlayGameHistoryButon(game.boxes)}
-                        >
-                          play
-                        </button>
-                      )}
+                      <button
+                        style={{ visibility: gameButtonVisibility }}
+                        className='glass'
+                        onClick={() =>
+                          handleClickPlayGameHistoryButon(game.boxes)}
+                      >
+                        play
+                      </button>
                     </li>
                   )
                 })}
