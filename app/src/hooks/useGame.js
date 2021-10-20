@@ -92,7 +92,7 @@ export default () => {
     try {
       const res = await axiosInstance.get(BASE_URL)
       const { games } = res.data
-      setHistory(games)
+      games && setHistory(games)
     } catch (error) {
       console.log(error)
     }
