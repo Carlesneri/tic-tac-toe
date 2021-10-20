@@ -1,4 +1,4 @@
-import findWinner from '../helpers/findWinner'
+import findWinner from '../app/src/helpers/findWinner.js'
 
 export default (availableBoxes, boxes) => {
   const winnerBox = getWinnerBox(availableBoxes, boxes)

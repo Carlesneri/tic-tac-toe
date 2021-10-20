@@ -1,6 +1,6 @@
 import findWinner from './findWinner'
 import getAvailableBoxes from './getAvailableBoxes'
-import getComputerBox from './getComputerBox'
+import getComputerBox from '../../../helpers/getComputerBox'
 
 let boxes
 

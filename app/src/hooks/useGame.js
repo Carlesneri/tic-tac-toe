@@ -5,7 +5,6 @@ import getThrow from '../helpers/getThrow'
 import getAvailableBoxes from '../helpers/getAvailableBoxes'
 import CONSTANTS from '../CONSTANTS'
 import axios from 'axios'
-import getComputerBox from '../helpers/getComputerBox'
 import { v1 as uuidV1 } from 'uuid'
 import { useCookies } from 'react-cookie'
 
@@ -39,10 +38,16 @@ export default () => {
     }
   }
 
-  const playComputer = () => {
+  const playComputer = async () => {
     if (turn === 2 && !isWinner()) {
       const availableBoxes = getAvailableBoxes(boxes)
-      const computerBox = getComputerBox(availableBoxes, boxes)
+      const body = {
+        availableBoxes,
+        boxes
+      }
+      const res = await axiosInstance.post(`${BASE_URL}/throw`, body)
+      const { computerBox } = res.data
+      // const computerBox = getComputerBox(availableBoxes, boxes)
       setBoxes(prevState => {
         prevState[computerBox] = { player: 2, throw: getThrow(availableBoxes.length) }
         return [...prevState]
@@ -78,7 +83,7 @@ export default () => {
       }
     }
     try {
-      await axiosInstance.post(BASE_URL, body)
+      await axiosInstance.post(`${BASE_URL}/game`, body)
       updateHistory()
     } catch (error) {
       console.log(error)
@@ -90,7 +95,7 @@ export default () => {
       setCookies(COOKIE_SESSION_NAME, uuidV1())
     }
     try {
-      const res = await axiosInstance.get(BASE_URL)
+      const res = await axiosInstance.get(`${BASE_URL}/game`)
       const { games } = res.data
       games && setHistory(games)
     } catch (error) {
@@ -100,7 +105,7 @@ export default () => {
 
   const cleanHistory = async () => {
     try {
-      await axiosInstance.delete(BASE_URL)
+      await axiosInstance.delete(`${BASE_URL}/game`)
       setHistory([])
     } catch (error) {
       console.log(error)

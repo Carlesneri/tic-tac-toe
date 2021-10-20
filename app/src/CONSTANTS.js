@@ -19,7 +19,7 @@ export default {
     1: 'win',
     2: 'lose'
   },
-  BASE_URL: '/game',
+  BASE_URL: '/api',
   COOKIE_SESSION_NAME: 'tic-tac-toe.sid'
 
 }

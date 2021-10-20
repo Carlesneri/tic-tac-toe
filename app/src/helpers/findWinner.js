@@ -1,5 +1,5 @@
-import getPlayerRegExp from './getPlayerRegExp'
-import getPositions from './getPositions'
+import getPlayerRegExp from './getPlayerRegExp.js'
+import getPositions from './getPositions.js'
 
 export default boxes => {
   const boxPlayersJoined = boxes.map(el => el.player).join('')
